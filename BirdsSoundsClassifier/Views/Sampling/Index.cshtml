@@ -1,0 +1,52 @@
+﻿@model IEnumerable<BirdsSoundsClassifier.Models.Sampling>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Species.CommonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObservationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObservationDuaration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Species.CommonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObservationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ObservationDuaration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SamplingID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SamplingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SamplingID })
+        </td>
+    </tr>
+}
+
+</table>
