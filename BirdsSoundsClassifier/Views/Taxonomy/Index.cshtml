@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BirdsSoundsClassifier.Models.Taxonomy>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Species.CommonName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SciName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaxonOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genus_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FamilyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Species.CommonName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SciName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaxonOrder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genus_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FamilyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaxonID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TaxonID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaxonID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,67 @@
+﻿@model BirdsSoundsClassifier.Models.Taxonomy
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Taxonomy</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Species.CommonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Species.CommonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SciName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SciName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxonOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxonOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genus_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genus_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FamilyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FamilyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaxonID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

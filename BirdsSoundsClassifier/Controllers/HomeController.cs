@@ -21,16 +21,98 @@ namespace BirdsSoundsClassifier.Controllers
             return View();
         }
 
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Create(Taxonomy taxonomy)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Taxonomies.Add(taxonomy);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(taxonomy);
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         // Redirection
         public ActionResult NewTaxonomy()
         {
-            return View("~/Views/Home/NewTaxonomy.cshtml");
+            return View("~/Views/Taxonomy/Create.cshtml");
         }
         //Redirection
         public ActionResult EditTaxonomy()
         {
-            return View("~/Views/Home/ViewTaxonCeation.cshtml");
+            return View("~/Views/Taxonomy/Edit.cshtml");
         }
+        //Redirection
+        public ActionResult DetailsTaxonomy()
+        {
+            return View("~/Views/Taxonomy/Details.cshtml");
+        }
+        //Redirection
+        public ActionResult IndexTaxonomy()
+        {
+            return View("~/Views/Taxonomy/Index.cshtml");
+        }
+
+
+        //Redirection
+        public ActionResult NewSpecies()
+        {
+            return View("~/Views/Bird/Create.cshtml");
+        }
+        //Redirection
+        public ActionResult EditSpecies()
+        {
+            return View("~/Views/Bird/Edit.cshtml");
+        }
+        //Redirection
+        public ActionResult DetailSpecies()
+        {
+            return View("~/Views/Bird/Details.cshtml");
+
+        }
+        //Redirection
+        public ActionResult IndexSpecies()
+        {
+            return View("~/Views/Bird/Index.cshtml");
+        }
+
+
+        //Redirection
+        public ActionResult NewSampling()
+        {
+            return View("~/Views/Sampling/Create.cshtml");
+        }
+        //Redirection
+        public ActionResult EditSampling()
+        {
+            return View("~/Views/Sampling/Edit.cshtml");
+        }
+        //Redirection
+        public ActionResult DetailSampling()
+        {
+            return View("~/Views/Sampling/Details.cshtml");
+        }
+        //Redirection
+        public ActionResult IndexSampling()
+        {
+            return View("~/Views/Sampling/Index.cshtml");
+        }
+
+
 
         //Create Taxonomy
         public ActionResult NewTaxonCreation(Taxonomy taxonomy)

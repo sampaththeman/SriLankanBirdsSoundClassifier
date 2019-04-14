@@ -16,13 +16,18 @@ namespace BirdsSoundsClassifier
 
         protected void Application_Start()
         {
-            Log.Info("Starting up...");
             AreaRegistration.RegisterAllAreas();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Log.Info("Routes and bundles registered");
-            Log.Info("Started");
+            //Log.Info("Starting up...");
+            //AreaRegistration.RegisterAllAreas();
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Log.Info("Routes and bundles registered");
+            //Log.Info("Started");
         }
 
         protected void Application_End()
