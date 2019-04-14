@@ -1,0 +1,128 @@
+﻿using BirdsSoundsClassifier.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
+
+namespace BirdsSoundsClassifier.Controllers.api
+{
+    public class MobileController : ApiController
+    {
+        private BirdsContext _context;
+
+        public MobileController()
+        {
+            _context = new BirdsContext();
+        }
+
+        [HttpPost]
+        [Route("api/getBirdsLists")]
+        public IHttpActionResult getBirdsListbyName([FromBody] string q)
+        {
+            var queryToList = (from ac in _context.Species
+                               join ci in _context.Taxonomies on ac.BirdID equals ci.BirdID into gj
+                               where ac.CommonName.Contains(q)
+                               select new
+                               {
+                                   ac.BirdID,
+                                   ac.CommonName,
+                                   Taxo = gj
+                               }).ToList();
+
+
+            return Ok(queryToList);
+        }
+
+        [HttpGet]
+        [Route("api/getBirdsListsALL")]
+        public IHttpActionResult getBirdsListAll()
+        {
+            var queryToList = (from ac in _context.Species
+                               join ci in _context.Taxonomies on ac.BirdID equals ci.BirdID into gj
+                               
+                               select new
+                               {
+                                   ac.BirdID,
+                                   ac.CommonName,
+                                   Taxo = gj
+                               }).ToList();
+
+
+            return Ok(queryToList);
+        }
+
+        [HttpPost]
+        [Route("api/CreateUser")]
+        public IdentityResult CreateUser(RegisterViewModel RegisterUsers)
+        {
+            try
+            {
+                var userStore = new UserStore<ApplicationUser>(new BirdsContext());
+                var manager = new UserManager<ApplicationUser>(userStore);
+                var user = new ApplicationUser() { UserName = RegisterUsers.Email, Email = RegisterUsers.Email };
+                IdentityResult result = manager.Create(user, RegisterUsers.Password);
+
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                IdentityResult result = null;
+                return result;
+            }
+
+        }
+
+
+
+        [HttpPost]
+        [Route("api/UploadRecording")]
+        public IHttpActionResult UploadRecording(Sampling Sampling, HttpPostedFileBase file)
+        {
+            string Message = "";
+            string fileName = "";
+          // string extension = Path.GetExtension(file.FileName);
+
+            try
+            {
+
+                if (ModelState.IsValid)
+                {
+                    Sampling.AudioFileName = file.FileName;
+                    _context.Samplings.Add(Sampling);
+                    _context.SaveChanges();
+                    Message = "1";
+                    return Ok(Message);
+                }
+
+
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/Audio"), fileName);
+                    file.SaveAs(path);
+                  
+                }
+                Message = "1";
+                return Ok(Message);
+            }
+            catch (Exception ex)
+            {
+                Message = "0";
+                return Ok(ex.Message);
+            }
+        }
+
+
+
+    }
+}

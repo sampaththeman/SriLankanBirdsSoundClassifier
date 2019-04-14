@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -45,12 +46,20 @@ namespace BirdsSoundsClassifier.Controllers
 
         // POST: Taxonomy/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "BirdID")]  Taxonomy model)
+        public ActionResult Create(Taxonomy model,HttpPostedFileBase file)
         {
+            string fileName = "";
+            if (file != null && file.ContentLength > 0)
+            {
+                fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                file.SaveAs(path);
+            }
             try
             {
                 if (ModelState.IsValid)
                 {
+                     model.Imagepath = fileName;
                     _context.Taxonomies.Add(model);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
@@ -67,6 +76,8 @@ namespace BirdsSoundsClassifier.Controllers
         // GET: Taxonomy/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.Birds = new SelectList(_context.Species.ToList(), "BirdID", "CommonName", "0");
+
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Taxonomy tax = _context.Taxonomies.Find(id);

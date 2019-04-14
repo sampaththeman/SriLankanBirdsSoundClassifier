@@ -15,9 +15,9 @@ namespace BirdsSoundsClassifier.Models
         public Species Species { get; set; }
         public int? BirdID { get; set; }
         public string SciName { get; set; }
+        public string Imagepath { get; set; }
         public string TaxonOrder { get; set; }
         public string Genus_Name { get; set; }
-        public byte[] BirdsPicture { get; set; }
         public string FamilyName { get; set; }
         public string OrderName { get; set; }
     }
