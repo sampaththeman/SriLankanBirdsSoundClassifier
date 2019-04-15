@@ -14,6 +14,7 @@ namespace BirdsSoundsClassifier.App_Start
                 .Include("~/Content/css/font-awesome.min.css", new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/icheck/blue.min.css", new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/AdminLTE.css", new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/DataTables/css/jquery.dataTables.css")
                 .Include("~/Content/css/skins/skin-blue.css"));
 
             bundles.Add(new ScriptBundle("~/Bundles/js")
@@ -26,6 +27,7 @@ namespace BirdsSoundsClassifier.App_Start
                 .Include("~/Content/js/plugins/datepicker/bootstrap-datepicker.js")
                 .Include("~/Content/js/plugins/icheck/icheck.js")
                 .Include("~/Content/js/plugins/validator/validator.js")
+                .Include("~/Scripts/DataTables/jquery.dataTables.js")
                 .Include("~/Content/js/plugins/inputmask/jquery.inputmask.bundle.js")
                 .Include("~/Content/js/adminlte.js")
                 .Include("~/Content/js/init.js"));

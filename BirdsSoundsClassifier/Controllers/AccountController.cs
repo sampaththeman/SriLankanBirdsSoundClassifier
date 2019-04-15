@@ -116,6 +116,34 @@ namespace BirdsSoundsClassifier.Controllers
         }
 
         //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<HttpStatusCodeResult> LoginAsync(LoginViewModel model, string returnUrl)
+        {
+
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            switch (result)
+            {
+
+                case SignInStatus.Success:
+                    return new HttpStatusCodeResult(200, "Success");
+                case SignInStatus.LockedOut:
+                    return new HttpStatusCodeResult(410, "Account Locked please Contact Tech Team");
+                case SignInStatus.RequiresVerification:
+                    return new HttpStatusCodeResult(404);
+                case SignInStatus.Failure:
+                default:
+                    return new HttpStatusCodeResult(404,"Password Or UserName wrong Please Try Again!");
+            }
+        }
+
+        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)

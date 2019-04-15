@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Routing;
 
 namespace BirdsSoundsClassifier.Controllers.api
 {
@@ -24,6 +25,7 @@ namespace BirdsSoundsClassifier.Controllers.api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/getBirdsLists")]
         public IHttpActionResult getBirdsListbyName([FromBody] string q)
         {
@@ -42,6 +44,7 @@ namespace BirdsSoundsClassifier.Controllers.api
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [Route("api/getBirdsListsALL")]
         public IHttpActionResult getBirdsListAll()
         {
@@ -61,6 +64,7 @@ namespace BirdsSoundsClassifier.Controllers.api
 
         [HttpPost]
         [Route("api/CreateUser")]
+        [AllowAnonymous]
         public IdentityResult CreateUser(RegisterViewModel RegisterUsers)
         {
             try
@@ -81,15 +85,31 @@ namespace BirdsSoundsClassifier.Controllers.api
 
         }
 
+        [HttpPost]
+
+        [Route("api/LoginUser")]
+        public async Task<IHttpActionResult> LoginUserAsync(LoginViewModel Login)
+        {
+            string url = "MM";
+            RouteData route = new RouteData();
+            AccountController controller = new AccountController();
+            route.Values.Add("action", "LoginAsync"); // ActionName
+            route.Values.Add("controller", "Account"); // Controller Name
+            System.Web.Mvc.ControllerContext newContext = new System.Web.Mvc.ControllerContext(new HttpContextWrapper(System.Web.HttpContext.Current), route, controller);
+            controller.ControllerContext = newContext;
+            var msg =   await controller.LoginAsync(Login, url);
+
+            return Ok(msg);
+        }
 
 
         [HttpPost]
         [Route("api/UploadRecording")]
-        public IHttpActionResult UploadRecording(Sampling Sampling, HttpPostedFileBase file)
+        public IHttpActionResult UploadRecording([FromBody]Sampling Sampling, HttpPostedFileBase file)
         {
             string Message = "";
             string fileName = "";
-          // string extension = Path.GetExtension(file.FileName);
+            // string extension = Path.GetExtension(file.FileName);
 
             try
             {
@@ -110,7 +130,7 @@ namespace BirdsSoundsClassifier.Controllers.api
                     fileName = Path.GetFileName(file.FileName);
                     var path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath("~/Uploads/Audio"), fileName);
                     file.SaveAs(path);
-                  
+
                 }
                 Message = "1";
                 return Ok(Message);
@@ -122,7 +142,23 @@ namespace BirdsSoundsClassifier.Controllers.api
             }
         }
 
+        [HttpGet]
+        [Route("api/LoadDatatabe")]
+        public IHttpActionResult LoadDataTable()
+        {
+            var queryToList = (from ac in _context.Users
+                          
+                               select new
+                               {
+                                   ac.UserName,
+                                   ac.PhoneNumber,
+                                   ac.Email,
+                                   ac.Id
+                               }).ToList();
 
+
+            return Ok(queryToList);
+        }
 
     }
 }
