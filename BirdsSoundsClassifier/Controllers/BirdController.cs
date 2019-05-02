@@ -68,7 +68,7 @@ namespace BirdsSoundsClassifier.Controllers
         // GET: Bird/Edit/5
         public ActionResult Edit(int? id)
         {
-
+            ViewBag.Birds = new SelectList(_context.Species.ToList(), "BirdID", "CommonName", "0");
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             Species taxonomy = _context.Species.Find(id);
@@ -79,7 +79,7 @@ namespace BirdsSoundsClassifier.Controllers
 
         // POST: Bird/Edit/5
         [HttpPost]
-        public ActionResult Edit(Species collection)
+        public ActionResult Edit([Bind(Include = "BirdID")] Species collection)
         {
             try
             {

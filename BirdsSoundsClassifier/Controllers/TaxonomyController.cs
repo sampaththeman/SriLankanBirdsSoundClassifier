@@ -46,20 +46,19 @@ namespace BirdsSoundsClassifier.Controllers
 
         // POST: Taxonomy/Create
         [HttpPost]
-        public ActionResult Create(Taxonomy model,HttpPostedFileBase file)
+        public ActionResult Create(Taxonomy model)
         {
-            string fileName = "";
-            if (file != null && file.ContentLength > 0)
-            {
-                fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                file.SaveAs(path);
-            }
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                     model.Imagepath = fileName;
+                    //create path to store in database
+                    string filename = model.Imagepath.FileName.ToString();
+                    model.ImageURL = filename;
+                    model.Imagepath.SaveAs(Server.MapPath("~/Uploads") + "/" + model.Imagepath.FileName);
+
+                    //model.Imagepath = fileName;
                     _context.Taxonomies.Add(model);
                     _context.SaveChanges();
                     return RedirectToAction("Index");

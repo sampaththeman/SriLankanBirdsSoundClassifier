@@ -229,6 +229,27 @@ namespace BirdsSoundsClassifier.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<HttpStatusCodeResult> RegisterAsync(RegisterViewModel model)
+        {
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var result = await UserManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                result = await UserManager.AddToRoleAsync(user.Id, model.RoleName);
+                return new HttpStatusCodeResult(200, "Success");
+            }
+            else
+            {
+                return new HttpStatusCodeResult(404, result.ToString());
+            }
+
+        }
+
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

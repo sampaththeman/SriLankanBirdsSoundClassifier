@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsSoundsClassifier", "BirdsSoundsClassifier\BirdsSoundsClassifier.csproj", "{D7607FD3-0712-495F-B69C-91A2B20AC8CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsUnitTest", "BirdsUnitTest\BirdsUnitTest.csproj", "{268D4FE5-CEEF-45E2-8F88-6AB0811A9B5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D7607FD3-0712-495F-B69C-91A2B20AC8CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7607FD3-0712-495F-B69C-91A2B20AC8CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7607FD3-0712-495F-B69C-91A2B20AC8CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{268D4FE5-CEEF-45E2-8F88-6AB0811A9B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{268D4FE5-CEEF-45E2-8F88-6AB0811A9B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{268D4FE5-CEEF-45E2-8F88-6AB0811A9B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{268D4FE5-CEEF-45E2-8F88-6AB0811A9B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
